@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screens/user_screen.dart';
+
 void main() => runApp(GroupExpenses());
 
 class GroupExpenses extends StatelessWidget {
@@ -7,24 +9,13 @@ class GroupExpenses extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Group Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.red,
+        primaryColor: Colors.red[200],
+        accentColor: Colors.grey[350],
+        fontFamily: 'Lato',
       ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Group Expenses'),
-      ),
-      body: Center(child: Text('Group Expenses'),),
+      home: UserScreen(),
     );
   }
 }
