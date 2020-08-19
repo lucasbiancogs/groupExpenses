@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'pie_chart.dart';
 
-class MainCard extends StatelessWidget {
+class GroupMainCard extends StatelessWidget {
   final double total;
 
-  MainCard(this.total);
+  GroupMainCard(this.total);
 
   @override
   Widget build(BuildContext context) {
