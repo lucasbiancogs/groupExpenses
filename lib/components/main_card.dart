@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'pie_chart.dart';
 
 class MainCard extends StatelessWidget {
+  final double total;
+
+  MainCard(this.total);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -19,7 +23,7 @@ class MainCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'R\$ 00000,00',
+                'R\$ ${total.toStringAsFixed(2)}',
                 style: TextStyle(
                   fontSize: 30,
                 ),
@@ -48,9 +52,9 @@ class MainCard extends StatelessWidget {
                   CircleAvatar(
                     child: Text(
                       'Usuário 3',
-                        style: TextStyle(
-                          fontSize: 9,
-                        ),
+                      style: TextStyle(
+                        fontSize: 9,
+                      ),
                     ),
                   ),
                   SizedBox(width: 6),
