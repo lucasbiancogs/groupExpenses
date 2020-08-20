@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screens/user_screen.dart';
+import 'screens/group_screen.dart';
 import 'data/dummy_data.dart';
 
 void main() => runApp(GroupExpenses());
@@ -18,7 +18,7 @@ class GroupExpenses extends StatelessWidget {
         fontFamily: 'Lato',
       ),
       // To tentando passar um user por dummy data
-      home: UserScreen(data[1].users[1]),
+      home: GroupScreen(data[1]),
     );
   }
 }
