@@ -1,17 +1,27 @@
+import 'package:flutter/material.dart';
+
 import 'user.dart';
+import '../data/dummy_data.dart';
 
-class Group {
+class Group with ChangeNotifier {
   final String id;
-  List<User> users = [];
+  String name;
+  List<String> usersId = [];
 
-  Group({this.id, this.users});
+  Group({this.id, this.usersId, this.name});
 
-  double get total {
-    List<double> values = [];
-    users.forEach((user) => values.add(user.total));
+  List<User> get users {
+    final data = DUMMY_DATA;
+    List<ChangeNotifier> allUsers = data['users'];
 
-    double total = values.fold(0, (sum, value) => sum + value);
+    return allUsers;
+  }
 
-    return total;
+  Function teste() {
+    final data = DUMMY_DATA;
+    print(data);
+    List<ChangeNotifier> allUsers = data['users'];
+
+    print(allUsers);
   }
 }

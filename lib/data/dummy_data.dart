@@ -2,46 +2,32 @@ import '../providers/group.dart';
 import '../providers/user.dart';
 import '../providers/transaction.dart';
 
-final DUMMY_DATA = [
-  Group(
-    id: 'g1',
-    users: [
-      User(
-        id: 'u1',
-        transactions: [
-          Transaction(
-            id: 't1',
-            value: 1.0,
-          )
-        ],
-      ),
-    ],
-  ),
-  Group(
-    id: 'g2',
-    users: [
-      User(
-        id: 'u2',
-        transactions: [
-          Transaction(
-            id: 't2',
-            value: 10.0,
-          )
-        ],
-      ),
-      User(
-        id: 'u3',
-        transactions: [
-          Transaction(
-            id: 't3',
-            value: 100.0,
-          ),
-          Transaction(
-            id: 't4',
-            value: 1000.0,
-          )
-        ],
-      ),
-    ],
-  ),
-];
+
+
+final DUMMY_DATA = {
+  'groups': [
+    Group(
+      id: 'g1',
+      name: 'Família',
+      usersId: [
+        'u1',
+        'u2',
+        'u3',
+        'u4',
+      ],
+    ),
+    Group(
+      id: 'g2',
+      name: 'Loja',
+      usersId: [
+        'u2',
+        'u3',
+      ],
+    ),
+  ],
+  'users': {
+    'u1': {
+      'name': 'Lucas'
+    }
+  }
+};
