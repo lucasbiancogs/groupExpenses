@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'screens/user_screen.dart';
 import 'data/dummy_data.dart';
 
+import 'providers/groups.dart';
 import 'providers/group.dart';
 import 'providers/user.dart';
 
@@ -18,6 +19,10 @@ class GroupExpenses extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => new User(),
+        ),
+        ChangeNotifierProxyProvider<User, Groups>(
+          create: (_) => new Groups([]),
+          update: (_, user, prevGroups) => Groups(user.groupsId),
         ),
         ChangeNotifierProvider(
           create: (_) => new Group(),

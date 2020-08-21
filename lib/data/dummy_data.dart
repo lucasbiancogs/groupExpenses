@@ -24,10 +24,5 @@ final DUMMY_DATA = {
         'u3',
       ],
     ),
-  ],
-  'users': {
-    'u1': {
-      'name': 'Lucas'
-    }
-  }
+  ]
 };
