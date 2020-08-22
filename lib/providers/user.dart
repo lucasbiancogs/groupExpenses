@@ -4,14 +4,10 @@ import 'package:groupExpenses/data/dummy_data.dart';
 import 'transaction.dart';
 
 class User with ChangeNotifier {
-  String id = '-MFEOtnGHMqEBVQ0GNZD';
+  String id;
   String _name;
-  List<Transaction> _transactions = [
-    Transaction(id: 't1', value: 10, groupId: 'g1'),
-  ];
-  List<String> _groupsId = [
-    '-MFEN4XyYIo-B8-Fpf-U',
-  ];
+  List<Transaction> _transactions = [];
+  List<String> _groupsId = [];
   // String _imageUrl talvez isso deva ficar só no firebase
 
   String get name {

@@ -7,7 +7,7 @@ import '../providers/transaction.dart';
 final DUMMY_DATA = {
   'groups': [
     Group(
-      id: 'g1',
+      id: '-MFEN4XyYIo-B8-Fpf-U',
       name: 'Família',
       usersId: [
         'u1',

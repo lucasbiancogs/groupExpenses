@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groupExpenses/providers/auth.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/user_screen.dart';
@@ -17,6 +18,9 @@ class GroupExpenses extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (_) => new Auth(),
+        ),
         ChangeNotifierProvider(
           create: (_) => new User(),
         ),

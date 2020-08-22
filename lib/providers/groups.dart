@@ -20,7 +20,26 @@ class Groups with ChangeNotifier {
     return groups;
   }
 
-  Future<void> teste() async {
+  void teste() {
+    getter();
+  }
+
+  void getter() {
+    final List<Group> allGroups = DUMMY_DATA['groups'];
+    final List<Group> groups = [];
+    _groupsId.map((id) {
+      return allGroups.map((group) {
+        if (group.id == id) {
+          groups.add(group);
+        }
+      });
+    });
+
+    print(allGroups[0].id);
+    print(_groupsId[0]);
+  }
+
+  Future<void> requisition() async {
     final response = await http.post(
         'https://groupexpenses-lucasbianco.firebaseio.com/users.json',
         body: json.encode({
@@ -29,10 +48,7 @@ class Groups with ChangeNotifier {
             '-MFEN4XyYIo-B8-Fpf-U',
           ].map((u) => u).toList(),
           'transactions': [
-            {
-              'value': 10.0,
-              'groupId': '-MFEN4XyYIo-B8-Fpf-U'
-            }
+            {'value': 10.0, 'groupId': '-MFEN4XyYIo-B8-Fpf-U'}
           ].map((t) => t).toList()
         }));
 
