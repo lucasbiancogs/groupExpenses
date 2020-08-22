@@ -1,27 +1,34 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'user.dart';
-import '../data/dummy_data.dart';
 
 class Group with ChangeNotifier {
-  final String id;
+  String _groupId;
   String name;
-  List<String> usersId = [];
+  List<String> _usersId = [];
+  
+  List<User> users = [];
 
-  Group({this.id, this.usersId, this.name});
+  static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
-  List<User> get users {
-    final data = DUMMY_DATA;
-    List<ChangeNotifier> allUsers = data['users'];
+  Group();
 
-    return allUsers;
+  Future<void> loadGroup() async {
+    print(_groupId);
+    if (_groupId != null) {
+      final response = await http.get('$_baseUrl/groups/$_groupId.json');
+      final Map<String, dynamic> data = json.decode(response.body);
+      print(data);
+      final List<dynamic> usersIdData = data['usersId'] as List<dynamic>;
+      final usersId = usersIdData.map((usersId) => usersId.toString()).toList();
+      _usersId = usersId;
+
+      print(_usersId);
+    }
   }
 
-  Function teste() {
-    final data = DUMMY_DATA;
-    print(data);
-    List<ChangeNotifier> allUsers = data['users'];
-
-    print(allUsers);
-  }
+  // Criar metodo de carregar os usuários
 }

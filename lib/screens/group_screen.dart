@@ -32,10 +32,6 @@ class GroupScreen extends StatelessWidget {
                 // }).toList(),
               ),
             ),
-            RaisedButton(
-              child: Text('Teste'),
-              onPressed: _group.teste,
-            )
           ],
         ),
       ),

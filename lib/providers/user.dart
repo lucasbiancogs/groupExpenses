@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:groupExpenses/data/dummy_data.dart';
 
 import 'transaction.dart';
 
