@@ -15,7 +15,7 @@ class UserScreen extends StatelessWidget {
     final group = Provider.of<Group>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Usuário ${user.name}'),
+        title: Text('Usuário ${auth.name}'),
       ),
       body: Container(
         width: double.infinity,
@@ -33,7 +33,7 @@ class UserScreen extends StatelessWidget {
             ),
             RaisedButton(
               child: Text('Carregar grupos'),
-              onPressed: group.loadGroup,
+              onPressed: auth.loadGroups,
             ),
           ],
         ),

@@ -19,11 +19,9 @@ class AppDrawer extends StatelessWidget {
             title: Text('Loja'),
             onTap: () {},
           ),
-          Row(
+          Column(
             children: auth.groups.map((group) {
-              return ListTile(
-                leading: Text('oi'),
-              );
+              return Text(group.name);
             }).toList(),
           ),
         ],

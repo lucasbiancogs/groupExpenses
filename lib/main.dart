@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:groupExpenses/providers/auth.dart';
+import 'package:groupExpenses/screens/auth_or_home.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/user_screen.dart';
@@ -33,7 +34,7 @@ class GroupExpenses extends StatelessWidget {
         ),
         
         // To tentando passar um user por dummy data
-        home: UserScreen(),
+        home: AuthOrHome(),
       ),
     );
   }
