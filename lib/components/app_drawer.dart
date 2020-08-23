@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/auth.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(context);
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -13,9 +17,14 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.shop),
             title: Text('Loja'),
-            onTap: () {
-              
-            },
+            onTap: () {},
+          ),
+          Row(
+            children: auth.groups.map((group) {
+              return ListTile(
+                leading: Text('oi'),
+              );
+            }).toList(),
           ),
         ],
       ),

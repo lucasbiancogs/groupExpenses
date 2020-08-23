@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groupExpenses/components/app_drawer.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/group.dart';
@@ -37,6 +38,7 @@ class UserScreen extends StatelessWidget {
           ],
         ),
       ),
+      drawer: AppDrawer(),
     );
   }
 }

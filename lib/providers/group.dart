@@ -14,7 +14,7 @@ class Group with ChangeNotifier {
 
   static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
-  Group();
+  Group([this._groupId]);
 
   Future<void> loadGroup() async {
     print(_groupId);

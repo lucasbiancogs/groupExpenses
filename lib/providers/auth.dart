@@ -9,8 +9,6 @@ class Auth with ChangeNotifier {
   String _userId = '-MFNNXKUcVSI0Ob0iHZK';
   String name;
   List<String> _groupsId = [];
-  
-  List<Group> groups = [];
 
   static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
@@ -26,7 +24,13 @@ class Auth with ChangeNotifier {
     return Future.value();
   }
 
-  Future<void> loadGroups() async {}
+  List<Group> get groups {
+    final List<Group> groups = [];
+    _groupsId.forEach((groupId) {
+      groups.add(Group(groupId));
+    });
+    return groups;
+  }
 
   Future<void> teste() async {
     final response = await http.post(
