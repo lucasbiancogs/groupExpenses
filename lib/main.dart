@@ -3,10 +3,6 @@ import 'package:groupExpenses/providers/auth.dart';
 import 'package:groupExpenses/screens/auth_or_home.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/user_screen.dart';
-
-import 'providers/group.dart';
-import 'providers/user.dart';
 
 void main() => runApp(GroupExpenses());
 
@@ -17,12 +13,6 @@ class GroupExpenses extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) => new Auth(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => new User(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => new Group(),
         ),
       ],
           child: MaterialApp(

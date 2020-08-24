@@ -38,7 +38,7 @@ class UserCard extends StatelessWidget {
         trailing: Container(
           width: 100,
           child: Text(
-            'R\$ ${_user.total}',
+            'R\$ total',
             style: TextStyle(
               fontSize: 18,
             ),

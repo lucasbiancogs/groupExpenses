@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:groupExpenses/components/app_drawer.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/group.dart';
 import '../providers/auth.dart';
-import '../providers/user.dart';
-import '../components/user_main_card.dart';
+// import '../components/user_main_card.dart';
 
 class UserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<Auth>(context);
-    final user = Provider.of<User>(context);
-    final group = Provider.of<Group>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Usuário ${auth.name}'),
@@ -22,10 +18,10 @@ class UserScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            UserMainCard(user),
+            // UserMainCard(),
             RaisedButton(
               child: Text('Carregar usuário'),
-              onPressed: auth.loadUser,
+              onPressed: auth.loadUserAuth,
             ),
             RaisedButton(
               child: Text('Teste'),

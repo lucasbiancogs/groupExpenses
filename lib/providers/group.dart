@@ -1,11 +1,9 @@
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'user.dart';
 
-class Group with ChangeNotifier {
+class Group {
   String groupId;
   String name;
   List<String> usersId = [];
@@ -29,6 +27,8 @@ class Group with ChangeNotifier {
 
     print('UsersId: $usersId');
     print('Grupo carregado.');
+
+    return Future.value();
   }
 
   // Criar metodo de carregar os usuários

@@ -15,7 +15,7 @@ class Auth with ChangeNotifier {
 
   static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
-  Future<void> loadUser() async {
+  Future<void> loadUserAuth() async {
     print('Carregando usuário $userId ...');
     final response = await http.get('$_baseUrl/users/$userId.json');
     final Map<String, dynamic> data = json.decode(response.body);
@@ -46,13 +46,15 @@ class Auth with ChangeNotifier {
     // Por enquanto só isso
     // Depois isso vai ser a resposta de uma requisição http
     userId = '-MFNNXKUcVSI0Ob0iHZK';
-    await loadUser();
-    await loadGroups();
-    isAuth = true;
-
-    print('Autenticação realizada com sucesso.');
-    notifyListeners();
-    return Future.value();
+    Future.wait([
+      loadUserAuth(),
+      loadGroups(),
+    ]).then((_) {
+      isAuth = true;
+      print('Autenticação realizada com sucesso.');
+      notifyListeners();
+      return Future.value();
+    });
   }
 
   Future<void> teste() async {

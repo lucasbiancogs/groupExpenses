@@ -24,7 +24,7 @@ class UserMainCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'R\$ ${_user.total.toStringAsFixed(2)}',
+                'R\$ total',
                 style: TextStyle(
                   fontSize: 30,
                 ),
