@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pie_chart/pie_chart.dart';
 
 import '../providers/group.dart';
-import 'pie_chart.dart';
 
 class GroupMainCard extends StatelessWidget {
-  final Group group;
-
-  GroupMainCard(this.group);
-
   @override
   Widget build(BuildContext context) {
+    final group = Provider.of<GroupProvider>(context);
     return Card(
       elevation: 8,
       child: Row(
         children: <Widget>[
-          PieChart(),
+          PieChart(
+            chartRadius: 180,
+            showLegends: false,
+            dataMap: group.pieChartMap,
+          ),
           Column(
             children: <Widget>[
               Text(
@@ -31,36 +33,21 @@ class GroupMainCard extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Row(
-                children: <Widget>[
-                  CircleAvatar(
-                    child: Text(
-                      'Usuário 1',
-                      style: TextStyle(
-                        fontSize: 9,
+                  children: group.users.map((user) {
+                return Row(
+                  children: [
+                    CircleAvatar(
+                      child: Text(
+                        user.name,
+                        style: TextStyle(
+                          fontSize: 10,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(width: 6),
-                  CircleAvatar(
-                    child: Text(
-                      'Usuário 2',
-                      style: TextStyle(
-                        fontSize: 9,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 6),
-                  CircleAvatar(
-                    child: Text(
-                      'Usuário 3',
-                      style: TextStyle(
-                        fontSize: 9,
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 6),
-                ],
-              )
+                    SizedBox(width: 6),
+                  ],
+                );
+              }).toList()),
             ],
           )
         ],

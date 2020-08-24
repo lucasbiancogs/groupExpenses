@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../providers/user.dart';
 
-import 'pie_chart.dart';
 
 class UserMainCard extends StatelessWidget {
   final User _user;
@@ -14,7 +13,7 @@ class UserMainCard extends StatelessWidget {
       elevation: 8,
       child: Row(
         children: <Widget>[
-          PieChart(),
+          // PieChart(),
           Column(
             children: <Widget>[
               Text(

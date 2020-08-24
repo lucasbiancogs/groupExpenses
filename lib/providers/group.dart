@@ -58,6 +58,15 @@ class Group {
     });
     return total;
   }
+
+  Map<String, double> pieChartMap() {
+    Map<String, double> dataMap = Map();
+    users.forEach((user) {
+      dataMap.putIfAbsent(user.name, () => user.groupTotal(groupId));
+    });
+
+    return dataMap;
+  }
 }
 
 class GroupProvider with ChangeNotifier {
@@ -67,5 +76,17 @@ class GroupProvider with ChangeNotifier {
 
   String get groupId {
     return group.groupId;
+  }
+
+  double get total {
+    return group.total;
+  }
+
+  List<User> get users {
+    return group.users;
+  }
+
+  Map<String, double> get pieChartMap {
+    return group.pieChartMap();
   }
 }

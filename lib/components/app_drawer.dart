@@ -15,8 +15,8 @@ class AppDrawer extends StatelessWidget {
             automaticallyImplyLeading: false,
           ),
           ListTile(
-            leading: Icon(Icons.shop),
-            title: Text('Loja'),
+            leading: Icon(Icons.format_list_bulleted),
+            title: Text('Lançamentos'),
             onTap: () {},
           ),
           Column(

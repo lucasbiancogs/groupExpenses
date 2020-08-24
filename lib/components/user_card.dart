@@ -32,7 +32,7 @@ class UserCard extends StatelessWidget {
               ),
               FractionallySizedBox(
                 // Inserir porcentagem correta
-                widthFactor: 0.7,
+                widthFactor: user.groupTotal(group.groupId) / group.total,
                 // Cor correta
                 child: Container(color: Colors.green),
               ),
@@ -42,7 +42,7 @@ class UserCard extends StatelessWidget {
         trailing: Container(
           width: 100,
           child: Text(
-            group.groupId,
+            'R\$ ${user.groupTotal(group.groupId).toStringAsFixed(2)}',
             style: TextStyle(
               fontSize: 18,
             ),
