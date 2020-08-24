@@ -6,9 +6,9 @@ import 'package:http/http.dart' as http;
 import 'group.dart';
 
 class Auth with ChangeNotifier {
-  String _userId;
+  String userId;
   String name;
-  List<String> _groupsId = [];
+  List<String> groupsId = [];
   List<Group> groups = [];
 
   bool isAuth = false;
@@ -16,16 +16,16 @@ class Auth with ChangeNotifier {
   static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
   Future<void> loadUser() async {
-    print('Carregando usuário $_userId ...');
-    final response = await http.get('$_baseUrl/users/$_userId.json');
+    print('Carregando usuário $userId ...');
+    final response = await http.get('$_baseUrl/users/$userId.json');
     final Map<String, dynamic> data = json.decode(response.body);
-    name = data['name'];
+    this.name = data['name'];
     print('User name: $name');
 
     final List<dynamic> groupsIdData = data['groupsId'] as List<dynamic>;
     final groupsId = groupsIdData.map((groupId) => groupId.toString()).toList();
-    _groupsId = groupsId;
-    print('GroupsId: $_groupsId');
+    this.groupsId = groupsId;
+    print('GroupsId: $groupsId');
 
     print('Usuário carregado.');
     return Future.value();
@@ -33,27 +33,26 @@ class Auth with ChangeNotifier {
 
   Future<void> loadGroups() async {
     groups = [];
-    _groupsId.forEach((groupId) {
+    groupsId.forEach((groupId) async {
       groups.add(Group(groupId));
     });
+    print('Carregando ${groups.length} grupos...');
     groups.forEach((group) async {
-      print('Carregando ${groups.length} grupos...');
       await group.loadGroup();
     });
-
-    return Future.value();
   }
 
   Future<void> login() async {
     // Por enquanto só isso
     // Depois isso vai ser a resposta de uma requisição http
-    _userId = '-MFNNXKUcVSI0Ob0iHZK';
+    userId = '-MFNNXKUcVSI0Ob0iHZK';
     await loadUser();
     await loadGroups();
     isAuth = true;
 
-    print('Autenticação realizada com sucesso');
+    print('Autenticação realizada com sucesso.');
     notifyListeners();
+    return Future.value();
   }
 
   Future<void> teste() async {

@@ -15,7 +15,7 @@ class GroupScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Usuário'),
+        title: Text(_group.name),
       ),
       body: Container(
         width: double.infinity,
