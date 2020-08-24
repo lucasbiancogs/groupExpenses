@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
-
+import 'package:provider/provider.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+
+import '../providers/auth.dart';
 
 class TransactionForm extends StatefulWidget {
   @override
@@ -15,6 +16,7 @@ class _TransactionFormState extends State<TransactionForm> {
 
   @override
   Widget build(BuildContext context) {
+    final auth = Provider.of<Auth>(context);
     return Container(
       width: double.infinity,
       height: 500,
@@ -25,40 +27,48 @@ class _TransactionFormState extends State<TransactionForm> {
         bottom: 10 + MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Scaffold(
-          appBar: AppBar(
-            title: Text('Nova Transação'),
-            automaticallyImplyLeading: false,
-          ),
-          body: Form(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 20,
+        appBar: AppBar(
+          title: Text('Nova Transação'),
+          automaticallyImplyLeading: false,
+        ),
+        body: Form(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      'Valor R\$',
+                      style: TextStyle(fontSize: 35),
                     ),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Valor R\$',
-                            style: TextStyle(fontSize: 35),
-                          ),
-                          Container(
-                            width: 100,
-                            child: TextField(
-                              keyboardType: TextInputType.number,
-                              controller: _valueControler,
-                            ),
-                          ),
-                        ]),
-                  ),
-                ],
-              ),
+                    SizedBox(width: 10),
+                    Container(
+                      width: 180,
+                      child: TextFormField(
+                        style: TextStyle(fontSize: 35),
+                        keyboardType: TextInputType.number,
+                        controller: _valueControler,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text('Grupo ', style: TextStyle(fontSize: 20)),
+                    Text(auth.groups[0].name, style: TextStyle(fontSize: 20)),
+                  ],
+                )
+              ],
             ),
           ),
+        ),
+      ),
     );
   }
 }
