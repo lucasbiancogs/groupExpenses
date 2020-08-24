@@ -50,5 +50,11 @@ class Group {
     return Future.value();
   }
 
-  // Criar metodo de carregar os usuários
+  double get total {
+    double total = 0;
+    users.forEach((user) {
+      total += user.groupTotal(groupId);
+    });
+    return total;
+  }
 }

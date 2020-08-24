@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import '../providers/user.dart';
 
 class UserCard extends StatelessWidget {
-  final User _user;
+  final User user;
 
-  UserCard(this._user);
+  UserCard(this.user);
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: ListTile(
@@ -17,7 +18,7 @@ class UserCard extends StatelessWidget {
         },
         leading: CircleAvatar(
           radius: 30,
-          child: Text('User ${_user.userId}'),
+          child: Text(user.name),
         ),
         title: Container(
           height: 15,

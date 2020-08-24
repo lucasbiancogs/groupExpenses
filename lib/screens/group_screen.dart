@@ -6,28 +6,28 @@ import '../components/group_main_card.dart';
 import '../providers/group.dart';
 
 class GroupScreen extends StatelessWidget {
-  final Group _group;
+  final Group group;
 
-  GroupScreen(this._group);
+  GroupScreen(this.group);
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(_group.name),
+        title: Text(group.name),
       ),
       body: Container(
         width: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            GroupMainCard(10),
+            GroupMainCard(group),
             Container(
               height: 300,
               child: ListView(
                 children: 
-                _group.users.map((user) {
+                group.users.map((user) {
                   return UserCard(user);
                 }).toList(),
               ),

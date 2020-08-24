@@ -43,6 +43,13 @@ class User with ChangeNotifier {
   }
 
   List<Transaction> userGroupTransacions(String groupId) {
-    return transactions.where((transaction) => transaction.groupId == groupId);
+    return transactions.where((transaction) => transaction.groupId == groupId).toList();
+  }
+
+  double groupTotal(String groupId) {
+    final double total = userGroupTransacions(groupId)
+        .fold(0, (sum, transaction) => sum + transaction.value);
+
+    return total;
   }
 }

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../providers/group.dart';
 import 'pie_chart.dart';
 
 class GroupMainCard extends StatelessWidget {
-  final double total;
+  final Group group;
 
-  GroupMainCard(this.total);
+  GroupMainCard(this.group);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class GroupMainCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'R\$ ${total.toStringAsFixed(2)}',
+                'R\$ ${group.total.toStringAsFixed(2)}',
                 style: TextStyle(
                   fontSize: 30,
                 ),
