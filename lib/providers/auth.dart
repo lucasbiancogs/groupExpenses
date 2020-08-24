@@ -85,4 +85,16 @@ class Auth with ChangeNotifier {
           ].map((t) => t).toList()
         }));
   }
+
+  Future<void> addGroup() async {
+    final response = await http.post(
+        'https://groupexpenses-lucasbianco.firebaseio.com/groups.json',
+        body: json.encode({
+          'name': 'Loja',
+          'usersId': [
+            '-MFNNXKUcVSI0Ob0iHZK',
+            '-MFVEnxWFtB4BkBfefpv',
+          ].map((u) => u).toList(),
+        }));
+  }
 }

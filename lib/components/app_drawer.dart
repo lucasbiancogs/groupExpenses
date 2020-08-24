@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
+import '../screens/group_screen.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -22,10 +23,15 @@ class AppDrawer extends StatelessWidget {
           Column(
             children: auth.groups.map((group) {
               return ListTile(
-                leading: Icon(Icons.group),
-                title: Text(group.name),
-                onTap: () {},
-              );
+                  leading: Icon(Icons.group),
+                  title: Text(group.name),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    return ChangeNotifierProvider.value(
+                      value: group,
+                      child: GroupScreen(),
+                    );
+                  });
             }).toList(),
           ),
           ListTile(
