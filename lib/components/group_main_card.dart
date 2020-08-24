@@ -7,7 +7,7 @@ import '../providers/group.dart';
 class GroupMainCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final group = Provider.of<GroupProvider>(context);
+    final group = Provider.of<Group>(context);
     return Card(
       elevation: 8,
       child: Row(

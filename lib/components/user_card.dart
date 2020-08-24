@@ -11,7 +11,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final group = Provider.of<GroupProvider>(context);
+    final group = Provider.of<Group>(context);
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),

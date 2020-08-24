@@ -10,6 +10,11 @@ class AuthOrHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<Auth>(context);
-    return auth.isAuth ? GroupScreen(auth.groups[0]) : AuthScreen();
+    return auth.isAuth
+    ? ChangeNotifierProvider.value(
+      value: auth.groups[0],
+      child: GroupScreen(),
+    )
+    : AuthScreen();
   }
 }

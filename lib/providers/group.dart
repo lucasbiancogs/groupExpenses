@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 import 'user.dart';
 
-class Group {
+class Group with ChangeNotifier {
   String groupId;
   String name;
   List<String> usersId = [];
@@ -59,34 +59,12 @@ class Group {
     return total;
   }
 
-  Map<String, double> pieChartMap() {
+  Map<String, double> get pieChartMap {
     Map<String, double> dataMap = Map();
     users.forEach((user) {
       dataMap.putIfAbsent(user.name, () => user.groupTotal(groupId));
     });
 
     return dataMap;
-  }
-}
-
-class GroupProvider with ChangeNotifier {
-  Group group;
-
-  GroupProvider(this.group);
-
-  String get groupId {
-    return group.groupId;
-  }
-
-  double get total {
-    return group.total;
-  }
-
-  List<User> get users {
-    return group.users;
-  }
-
-  Map<String, double> get pieChartMap {
-    return group.pieChartMap();
   }
 }

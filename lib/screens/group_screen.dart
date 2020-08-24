@@ -9,21 +9,12 @@ import '../providers/group.dart';
 import '../providers/auth.dart';
 
 class GroupScreen extends StatelessWidget {
-  final Group group;
-
-  GroupScreen(this.group);
-
   @override
   Widget build(BuildContext context) {
     final auth = Provider.of<Auth>(context);
+    final group = Provider.of<Group>(context);
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => new GroupProvider(group),
-        ),
-      ],
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text(group.name),
         ),
@@ -53,7 +44,6 @@ class GroupScreen extends StatelessWidget {
           ),
         ),
         drawer: AppDrawer(),
-      ),
     );
   }
 }
