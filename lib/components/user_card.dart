@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:groupExpenses/providers/group.dart';
+import 'package:provider/provider.dart';
 
 import '../providers/user.dart';
 
@@ -9,6 +11,7 @@ class UserCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final group = Provider.of<GroupProvider>(context);
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
@@ -39,7 +42,7 @@ class UserCard extends StatelessWidget {
         trailing: Container(
           width: 100,
           child: Text(
-            'R\$ total',
+            group.groupId,
             style: TextStyle(
               fontSize: 18,
             ),

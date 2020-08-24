@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'user.dart';
@@ -56,5 +57,15 @@ class Group {
       total += user.groupTotal(groupId);
     });
     return total;
+  }
+}
+
+class GroupProvider with ChangeNotifier {
+  Group group;
+
+  GroupProvider(this.group);
+
+  String get groupId {
+    return group.groupId;
   }
 }
