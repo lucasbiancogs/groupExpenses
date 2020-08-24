@@ -17,7 +17,7 @@ class UserCard extends StatelessWidget {
         },
         leading: CircleAvatar(
           radius: 30,
-          child: Text('User ${_user.id}'),
+          child: Text('User ${_user.userId}'),
         ),
         title: Container(
           height: 15,

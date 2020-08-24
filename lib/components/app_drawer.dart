@@ -21,8 +21,17 @@ class AppDrawer extends StatelessWidget {
           ),
           Column(
             children: auth.groups.map((group) {
-              return Text(group.name);
+              return ListTile(
+                leading: Icon(Icons.group),
+                title: Text(group.name),
+                onTap: () {},
+              );
             }).toList(),
+          ),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Sair'),
+            onTap: auth.logout,
           ),
         ],
       ),

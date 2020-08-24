@@ -21,11 +21,11 @@ class UserScreen extends StatelessWidget {
             // UserMainCard(),
             RaisedButton(
               child: Text('Carregar usuário'),
-              onPressed: auth.loadUserAuth,
+              onPressed: auth.loadAuth,
             ),
             RaisedButton(
               child: Text('Teste'),
-              onPressed: auth.teste,
+              onPressed: auth.signup,
             ),
             RaisedButton(
               child: Text('Carregar grupos'),

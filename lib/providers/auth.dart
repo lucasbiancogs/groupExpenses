@@ -15,19 +15,19 @@ class Auth with ChangeNotifier {
 
   static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
-  Future<void> loadUserAuth() async {
-    print('Carregando usuário $userId ...');
+  Future<void> loadAuth() async {
+    print('Carregando usuário autenticado $userId ...');
     final response = await http.get('$_baseUrl/users/$userId.json');
     final Map<String, dynamic> data = json.decode(response.body);
     this.name = data['name'];
-    print('User name: $name');
+    print('Auth user name: $name');
 
     final List<dynamic> groupsIdData = data['groupsId'] as List<dynamic>;
     final groupsId = groupsIdData.map((groupId) => groupId.toString()).toList();
     this.groupsId = groupsId;
-    print('GroupsId: $groupsId');
+    print('Auth GroupsId: $groupsId');
 
-    print('Usuário carregado.');
+    print('Usuário autenticado carregado.');
     return Future.value();
   }
 
@@ -53,7 +53,7 @@ class Auth with ChangeNotifier {
     // Por enquanto só isso
     // Depois isso vai ser a resposta de uma requisição http
     userId = '-MFNNXKUcVSI0Ob0iHZK';
-    await loadUserAuth();
+    await loadAuth();
     await loadGroups();
 
     print('Autenticação realizada com sucesso.');
@@ -61,16 +61,27 @@ class Auth with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> teste() async {
+  void logout() {
+    this.isAuth = false;
+    this.userId = null;
+    this.name = null;
+    this.groupsId = [];
+    this.groups = [];
+
+    notifyListeners();
+  }
+
+  Future<void> signup() async {
     final response = await http.post(
         'https://groupexpenses-lucasbianco.firebaseio.com/users.json',
         body: json.encode({
-          'name': 'Lucas',
+          'name': 'Nairana',
           'groupsId': [
             '-MFEN4XyYIo-B8-Fpf-U',
           ].map((u) => u).toList(),
           'transactions': [
-            {'value': 10.0, 'groupId': '-MFEN4XyYIo-B8-Fpf-U'}
+            {'value': 80.0, 'groupId': '-MFEN4XyYIo-B8-Fpf-U'},
+            {'value': 110.0, 'groupId': '-MFEN4XyYIo-B8-Fpf-U'},
           ].map((t) => t).toList()
         }));
   }

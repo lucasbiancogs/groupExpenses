@@ -7,12 +7,11 @@ class Group {
   String groupId;
   String name;
   List<String> usersId = [];
-
   List<User> users = [];
 
-  static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
-
   Group([this.groupId]);
+
+  static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
   Future<void> loadGroup() async {
     print('Carregando grupo: $groupId ...');
@@ -26,8 +25,28 @@ class Group {
     this.usersId = usersId;
 
     print('UsersId: $usersId');
+
+    await loadUsers();
     print('Grupo carregado.');
 
+    return Future.value();
+  }
+
+  Future<void> loadUsers() async {
+    users = [];
+    usersId.forEach((userId) async {
+      users.add(User(userId));
+    });
+    print('Carregando ${usersId.length} usuário(s)...');
+    await Future.forEach(users, (User user) async {
+      /*
+      Existe um problema com o forEach para carregar múltiplos Futures
+      pois ele não retorna um Future
+      por isso deve-se usar o Future.forEach....
+      */
+      await user.loadUser();
+      return Future.value();
+    });
     return Future.value();
   }
 

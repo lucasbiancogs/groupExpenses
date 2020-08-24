@@ -26,10 +26,10 @@ class GroupScreen extends StatelessWidget {
             Container(
               height: 300,
               child: ListView(
-                children: [Text('oi')]
-                // _group.users.map((user) {
-                  // return UserCard(user);
-                // }).toList(),
+                children: 
+                _group.users.map((user) {
+                  return UserCard(user);
+                }).toList(),
               ),
             ),
           ],
