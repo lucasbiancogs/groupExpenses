@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:groupExpenses/utils/app_routes.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/auth.dart';
@@ -25,11 +26,10 @@ class AppDrawer extends StatelessWidget {
               return ListTile(
                   leading: Icon(Icons.group),
                   title: Text(group.name),
-                  onTap: () {
-                    Navigator.of(context).pop();
-                    return ChangeNotifierProvider.value(
-                      value: group,
-                      child: GroupScreen(),
+                  onTap: () async {
+                    await Navigator.of(context).popAndPushNamed(
+                      AppRoutes.GROUP_SCREEN,
+                      arguments: group
                     );
                   });
             }).toList(),
@@ -37,7 +37,7 @@ class AppDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),
-            onTap: auth.logout,
+            onTap: () => auth.logout(context),
           ),
         ],
       ),

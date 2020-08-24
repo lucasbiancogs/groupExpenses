@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:groupExpenses/utils/app_routes.dart';
 import 'package:http/http.dart' as http;
 
 import 'group.dart';
@@ -49,7 +50,7 @@ class Auth with ChangeNotifier {
     return Future.value();
   }
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     // Por enquanto só isso
     // Depois isso vai ser a resposta de uma requisição http
     userId = '-MFNNXKUcVSI0Ob0iHZK';
@@ -58,16 +59,23 @@ class Auth with ChangeNotifier {
 
     print('Autenticação realizada com sucesso.');
     isAuth = true;
+    Navigator.of(context).pushNamed(
+      AppRoutes.GROUP_SCREEN,
+      arguments: groups[0],
+    );
     notifyListeners();
   }
 
-  void logout() {
+  void logout(BuildContext context) {
     this.isAuth = false;
     this.userId = null;
     this.name = null;
     this.groupsId = [];
     this.groups = [];
 
+    Navigator.of(context).pushNamed(
+      AppRoutes.AUTH,
+    );
     notifyListeners();
   }
 

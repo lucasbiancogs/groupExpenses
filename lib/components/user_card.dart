@@ -13,6 +13,12 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final group = Provider.of<Group>(context);
 
+    bool widthFactorAssertion =
+      user.groupTotal(group.groupId) == 0.0
+      || user.groupTotal(group.groupId) == null
+      || group.total == 0.0
+      || group.total == null;
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: ListTile(
@@ -30,6 +36,7 @@ class UserCard extends StatelessWidget {
               Container(
                 color: Colors.grey[200],
               ),
+              if(!widthFactorAssertion)
               FractionallySizedBox(
                 // Inserir porcentagem correta
                 widthFactor: user.groupTotal(group.groupId) / group.total,

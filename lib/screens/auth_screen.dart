@@ -10,7 +10,7 @@ class AuthScreen extends StatelessWidget {
     return Center(
       child: RaisedButton(
         child: Text('Entrar'),
-        onPressed: auth.login,
+        onPressed: () => auth.login(context),
       ),
     );
   }
