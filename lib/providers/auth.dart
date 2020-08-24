@@ -36,25 +36,29 @@ class Auth with ChangeNotifier {
     groupsId.forEach((groupId) async {
       groups.add(Group(groupId));
     });
-    print('Carregando ${groups.length} grupos...');
-    groups.forEach((group) async {
+    print('Carregando ${groups.length} grupo(s)...');
+    await Future.forEach(groups, (Group group) async {
+      /*
+      Existe um problema com o forEach para carregar múltiplos Futures
+      pois ele não retorna um Future
+      por isso deve-se usar o Future.forEach....
+      */
       await group.loadGroup();
+      return Future.value();
     });
+    return Future.value();
   }
 
   Future<void> login() async {
     // Por enquanto só isso
     // Depois isso vai ser a resposta de uma requisição http
     userId = '-MFNNXKUcVSI0Ob0iHZK';
-    Future.wait([
-      loadUserAuth(),
-      loadGroups(),
-    ]).then((_) {
-      isAuth = true;
-      print('Autenticação realizada com sucesso.');
-      notifyListeners();
-      return Future.value();
-    });
+    await loadUserAuth();
+    await loadGroups();
+
+    print('Autenticação realizada com sucesso.');
+    isAuth = true;
+    notifyListeners();
   }
 
   Future<void> teste() async {
