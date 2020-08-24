@@ -4,11 +4,23 @@ import 'package:provider/provider.dart';
 import '../components/app_drawer.dart';
 import '../components/user_card.dart';
 import '../components/group_main_card.dart';
+import '../components/transaction_form.dart';
 
 import '../providers/group.dart';
 import '../providers/auth.dart';
 
 class GroupScreen extends StatelessWidget {
+
+  openTransactionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      isScrollControlled: true,
+      context: context,
+      builder: (_) {
+        return TransactionForm();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     Group group = ModalRoute.of(context).settings.arguments as Group;
@@ -40,7 +52,7 @@ class GroupScreen extends StatelessWidget {
                 Icons.add,
                 size: 40,
               ),
-              onPressed: () {},
+              onPressed: () => openTransactionFormModal(context),
             )
           ],
         ),
