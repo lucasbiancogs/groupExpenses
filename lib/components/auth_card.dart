@@ -19,12 +19,21 @@ class _AuthCardState extends State<AuthCard> {
   AuthMode _authMode = AuthMode.Login;
 
   final Map<String, String> _authData = {
+    'name': '',
     'email': '',
     'password': '',
   };
 
+  // lucas.biancogs@hotmail.com
+
   // É preciso para verificar no Signup se as senhas batem
   final _passwordControler = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _passwordControler.dispose();
+  }
 
   Future<void> _submit() async {
     if (!_form.currentState.validate()) {
@@ -55,10 +64,6 @@ class _AuthCardState extends State<AuthCard> {
     } catch (err) {
       print(err);
     }
-
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   void _switchAuthMode() {
@@ -103,6 +108,7 @@ class _AuthCardState extends State<AuthCard> {
                       }
                       return null;
                     },
+                    onSaved: (value) => _authData['name'] = value,
                   ),
                 TextFormField(
                   decoration: InputDecoration(
@@ -149,17 +155,15 @@ class _AuthCardState extends State<AuthCard> {
                           }
                         : null,
                   ),
-                  SizedBox(height: 30),
+                SizedBox(height: 30),
                 if (_isLoading)
-                  Padding(
-                    padding: const EdgeInsets.all(50.0),
-                    child: CircularProgressIndicator(
-                      valueColor:
-                          AlwaysStoppedAnimation(Theme.of(context).primaryColor),
-                    ),
+                  CircularProgressIndicator(
+                    valueColor:
+                        AlwaysStoppedAnimation(Theme.of(context).primaryColor),
                   )
                 else
-                  Column(children: [
+                  Column(
+                    children: [
                       if (_authMode == AuthMode.Login)
                         FlatButton(
                           onPressed: () {

@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'providers/auth.dart';
 
 import 'utils/app_routes.dart';
+import 'screens/auth_or_home.dart';
 import 'screens/auth_screen.dart';
 import 'screens/group_screen.dart';
 import 'screens/user_screen.dart';
@@ -33,7 +34,7 @@ class GroupExpenses extends StatelessWidget {
         ),
         
         // To tentando passar um user por dummy data
-        home: AuthScreen(),
+        home: AuthOrHome(),
         routes: {
           AppRoutes.AUTH: (ctx) => AuthScreen(),
           AppRoutes.GROUP_SCREEN: (ctx) => GroupScreen(),
