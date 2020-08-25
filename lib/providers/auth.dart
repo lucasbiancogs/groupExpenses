@@ -21,8 +21,8 @@ class Auth with ChangeNotifier {
 
   Future<void> loadAuth() async {
     this.name = null;
-    this.transactions = null;
-    this.groupsId = null;
+    this.transactions = [];
+    this.groupsId = [];
     print('Carregando usuário autenticado $userId ...');
     final response = await http.get('$_baseUrl/users/$userId.json');
     final Map<String, dynamic> data = json.decode(response.body);

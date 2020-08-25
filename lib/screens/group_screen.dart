@@ -23,9 +23,9 @@ class GroupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Group group = ModalRoute.of(context).settings.arguments as Group;
+    final Group group = ModalRoute.of(context).settings.arguments as Group;
 
-    final auth = Provider.of<Auth>(context);
+    // final auth = Provider.of<Auth>(context);
     
     return ChangeNotifierProvider.value(
       value: group,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:groupExpenses/providers/group.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/group.dart';
+import '../utils/app_routes.dart';
 
 import '../providers/user.dart';
 
@@ -13,17 +15,19 @@ class UserCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final group = Provider.of<Group>(context);
 
-    bool widthFactorAssertion =
-      user.groupTotal(group.groupId) == 0.0
-      || user.groupTotal(group.groupId) == null
-      || group.total == 0.0
-      || group.total == null;
+    bool widthFactorAssertion = user.groupTotal(group.groupId) == 0.0 ||
+        user.groupTotal(group.groupId) == null ||
+        group.total == 0.0 ||
+        group.total == null;
 
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
       child: ListTile(
-        onTap: () {
-          // Navegar para a tela user_screen
+        onTap: () async {
+          await Navigator.of(context).pushNamed(
+            AppRoutes.USER_SCREEN,
+            arguments: user
+          );
         },
         leading: CircleAvatar(
           radius: 30,
@@ -36,13 +40,13 @@ class UserCard extends StatelessWidget {
               Container(
                 color: Colors.grey[200],
               ),
-              if(!widthFactorAssertion)
-              FractionallySizedBox(
-                // Inserir porcentagem correta
-                widthFactor: user.groupTotal(group.groupId) / group.total,
-                // Cor correta
-                child: Container(color: Colors.green),
-              ),
+              if (!widthFactorAssertion)
+                FractionallySizedBox(
+                  // Inserir porcentagem correta
+                  widthFactor: user.groupTotal(group.groupId) / group.total,
+                  // Cor correta
+                  child: Container(color: Colors.green),
+                ),
             ],
           ),
         ),
