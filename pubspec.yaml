@@ -27,6 +27,7 @@ dependencies:
   http: ^0.12.2
   pie_chart: ^3.1.1
   flutter_masked_text: ^0.8.0
+  shared_preferences: ^0.5.8
   
 
 

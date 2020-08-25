@@ -42,10 +42,15 @@ class _AuthCardState extends State<AuthCard> {
     try {
       if (_authMode == AuthMode.Login) {
         await auth.login(
-          context,
+          _authData['email'],
+          _authData['password'],
         );
       } else {
-        // await auth.signup();
+        await auth.signup(
+          _authData['email'],
+          _authData['password'],
+          _authData['name'],
+        );
       }
     } catch (err) {
       print(err);

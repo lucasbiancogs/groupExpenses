@@ -7,7 +7,6 @@ import '../components/auth_card.dart';
 class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<Auth>(context);
     return Scaffold(
         body: Stack(
       alignment: Alignment.topCenter,

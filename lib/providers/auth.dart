@@ -1,25 +1,82 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:groupExpenses/utils/app_routes.dart';
 import 'package:http/http.dart' as http;
+import '../data/store.dart';
 
 import 'group.dart';
 import 'transaction.dart';
+import '../utils/constants.dart';
 
 class Auth with ChangeNotifier {
-  String userId;
+  static const _signinUrl = Constants.BASE_AUTH_SIGNIN_URL;
+  static const _signupUrl = Constants.BASE_AUTH_SIGNUP_URL;
+  static const _baseUrl = Constants.BASE_API_URL;
+
+  String _token;
+  DateTime _expiryDate;
+  Timer _logoutTimer;
+  String _userId;
   String name;
   List<Transaction> transactions = [];
   List<String> groupsId = [];
   List<Group> groups = [];
+  bool _isAuth = false;
 
-  bool isAuth = false;
+  bool get isAuth {
+    // Dar uma revisada nesse métodos
+    return token != null ? _isAuth : false;
+  }
 
-  static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
+  String get userId {
+    return isAuth ? _userId : null;
+  }
 
-  Future<void> loadAuth() async {
+  String get token {
+    if (_token != null &&
+        _expiryDate != null &&
+        _expiryDate.isAfter(DateTime.now())) {
+      return _token;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> _authenticate(String email, String password, String url) async {
+    final response = await http.post(
+      url,
+      body: json.encode(
+          {'email': email, 'password': password, 'returnSecureToken': true}),
+    );
+
+    final responseBody = json.decode(response.body);
+    if (responseBody['error'] != null) {
+      print('Erro');
+      return null;
+    } else {
+      _token = responseBody['idToken'];
+      _userId = responseBody['localId'];
+      _expiryDate = DateTime.now().add(
+        Duration(seconds: int.parse(responseBody['expiresIn'])),
+      );
+
+      Store.saveMap('userData', {
+        'token': _token,
+        'userId': _userId,
+        'expiryDate': _expiryDate.toIso8601String(),
+      });
+
+      _autoLogout();
+      notifyListeners();
+    }
+
+    return Future.value();
+  }
+
+  Future<void> loadAuthenticatedUser() async {
     this.name = null;
     this.transactions = [];
     this.groupsId = [];
@@ -72,50 +129,57 @@ class Auth with ChangeNotifier {
     return Future.value();
   }
 
-  Future<void> login(BuildContext context) async {
-    // Por enquanto só isso
-    // Depois isso vai ser a resposta de uma requisição http
-    userId = '-MFNNXKUcVSI0Ob0iHZK';
-    await loadAuth();
+  Future<void> login(String email, String password) async {
+    await _authenticate(email, password, _signinUrl);
+    await loadAuthenticatedUser();
     await loadGroups();
 
-    print('Autenticação realizada com sucesso.');
-    isAuth = true;
-    Navigator.of(context).pushNamed(
-      AppRoutes.GROUP_SCREEN,
-      arguments: groups[0],
-    );
+    _isAuth = true;
+
     notifyListeners();
+    return Future.value();
   }
 
-  void logout(BuildContext context) {
-    this.isAuth = false;
-    this.userId = null;
+  void logout() {
+    this._token = null;
+    this._userId = null;
     this.name = null;
     this.groupsId = [];
     this.groups = [];
+    this._isAuth = false;
 
-    Navigator.of(context).pushNamed(
-      AppRoutes.AUTH,
-    );
     notifyListeners();
   }
 
-  Future<void> signup() async {
-    final response = await http.post(
-        'https://groupexpenses-lucasbianco.firebaseio.com/users.json',
+  Future<void> signup(String email, String password, String name) async {
+    await _authenticate(email, password, _signupUrl);
+    await http.post('$_baseUrl/users/$userId.json',
         body: json.encode({
-          'name': 'Nairana',
-          'groupsId': [
-            '-MFEN4XyYIo-B8-Fpf-U',
-          ].map((u) => u).toList(),
-          'transactions': [
-            {'value': 80.0, 'groupId': '-MFEN4XyYIo-B8-Fpf-U'},
-            {'value': 110.0, 'groupId': '-MFEN4XyYIo-B8-Fpf-U'},
-          ].map((t) => t).toList()
+          'name': name,
         }));
+
+    _isAuth = true;
+
+    return Future.value();
   }
 
+  String groupName(String groupId) {
+    String groupName = '';
+    groups.forEach((group) {
+      if (group.groupId == groupId) groupName = group.name;
+    });
+    return groupName;
+  }
+
+  void _autoLogout() {
+    if (_logoutTimer != null) {
+      _logoutTimer.cancel();
+    }
+    final timeToLogout = _expiryDate.difference(DateTime.now()).inSeconds;
+    _logoutTimer = Timer(Duration(seconds: timeToLogout), logout);
+  }
+
+  // Esse método tem que sair daqui e ir para group
   Future<void> addGroup() async {
     final response = await http.post(
         'https://groupexpenses-lucasbianco.firebaseio.com/groups.json',
@@ -126,13 +190,5 @@ class Auth with ChangeNotifier {
             '-MFVEnxWFtB4BkBfefpv',
           ].map((u) => u).toList(),
         }));
-  }
-
-  String groupName(String groupId) {
-    String groupName = '';
-    groups.forEach((group) {
-      if (group.groupId == groupId) groupName = group.name;
-    });
-    return groupName;
   }
 }
