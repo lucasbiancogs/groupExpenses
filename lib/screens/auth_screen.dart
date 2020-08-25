@@ -10,7 +10,7 @@ class AuthScreen extends StatelessWidget {
     final auth = Provider.of<Auth>(context);
     return Scaffold(
         body: Stack(
-          alignment: Alignment.center,
+      alignment: Alignment.topCenter,
       children: [
         Column(
           children: [
@@ -22,7 +22,7 @@ class AuthScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                      top: 70,
+                      top: 50,
                       right: 70,
                     ),
                     child: Text(
@@ -35,7 +35,9 @@ class AuthScreen extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(30),
+                    padding: const EdgeInsets.only(
+                      top: 5
+                    ),
                     child: Icon(
                       Icons.group,
                       size: 40,
@@ -48,7 +50,10 @@ class AuthScreen extends StatelessWidget {
             // Colocar outros tipos de autenticação e opção de signup
           ],
         ),
-        AuthCard(),
+        Padding(
+          padding: const EdgeInsets.only(top: 140),
+          child: AuthCard(),
+        ),
       ],
     ));
   }
