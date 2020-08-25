@@ -17,10 +17,13 @@ class AppDrawer extends StatelessWidget {
             automaticallyImplyLeading: false,
           ),
           ListTile(
-            leading: Icon(Icons.format_list_bulleted),
-            title: Text('Lançamentos'),
-            onTap: () {},
-          ),
+              leading: Icon(Icons.format_list_bulleted),
+              title: Text('Lançamentos'),
+              onTap: () async {
+                await Navigator.of(context).pushNamed(
+                    AppRoutes.TRANSACTION_LIST_SCREEN,
+                    arguments: auth.transactions);
+              }),
           Column(
             children: auth.groups.map((group) {
               return ListTile(
@@ -28,9 +31,8 @@ class AppDrawer extends StatelessWidget {
                   title: Text(group.name),
                   onTap: () async {
                     await Navigator.of(context).popAndPushNamed(
-                      AppRoutes.GROUP_SCREEN,
-                      arguments: group
-                    );
+                        AppRoutes.GROUP_SCREEN,
+                        arguments: group);
                   });
             }).toList(),
           ),

@@ -1,14 +1,17 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:groupExpenses/utils/app_routes.dart';
 import 'package:http/http.dart' as http;
 
 import 'group.dart';
+import 'transaction.dart';
 
 class Auth with ChangeNotifier {
   String userId;
   String name;
+  List<Transaction> transactions = [];
   List<String> groupsId = [];
   List<Group> groups = [];
 
@@ -17,11 +20,30 @@ class Auth with ChangeNotifier {
   static const _baseUrl = 'https://groupexpenses-lucasbianco.firebaseio.com';
 
   Future<void> loadAuth() async {
+    this.name = null;
+    this.transactions = null;
+    this.groupsId = null;
     print('Carregando usuário autenticado $userId ...');
     final response = await http.get('$_baseUrl/users/$userId.json');
     final Map<String, dynamic> data = json.decode(response.body);
     this.name = data['name'];
     print('Auth user name: $name');
+
+    final List<dynamic> transactionsData =
+        data['transactions'] as List<dynamic>;
+    transactionsData.forEach((transactionData) {
+      transactions.add(Transaction(
+        transactionId: Random().nextDouble().toString(),
+        value: transactionData['value'],
+        groupId: transactionData['groupId'],
+      ));
+    });
+    print('Total de ${transactions.length} transações.');
+    transactions.forEach((transaction) {
+      print('TransactionId: ${transaction.transactionId}');
+      print('Value: ${transaction.value}');
+      print('GroupId: ${transaction.groupId}');
+    });
 
     final List<dynamic> groupsIdData = data['groupsId'] as List<dynamic>;
     final groupsId = groupsIdData.map((groupId) => groupId.toString()).toList();
@@ -104,5 +126,13 @@ class Auth with ChangeNotifier {
             '-MFVEnxWFtB4BkBfefpv',
           ].map((u) => u).toList(),
         }));
+  }
+
+  String groupName(String groupId) {
+    String groupName = '';
+    groups.forEach((group) {
+      if (group.groupId == groupId) groupName = group.name;
+    });
+    return groupName;
   }
 }

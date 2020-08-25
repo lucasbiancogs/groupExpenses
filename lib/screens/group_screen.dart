@@ -11,12 +11,12 @@ import '../providers/auth.dart';
 
 class GroupScreen extends StatelessWidget {
 
-  openTransactionFormModal(BuildContext context) {
+  openTransactionFormModal(BuildContext context, Group group) {
     showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       builder: (_) {
-        return TransactionForm();
+        return TransactionForm(group);
       },
     );
   }
@@ -26,6 +26,7 @@ class GroupScreen extends StatelessWidget {
     Group group = ModalRoute.of(context).settings.arguments as Group;
 
     final auth = Provider.of<Auth>(context);
+    
     return ChangeNotifierProvider.value(
       value: group,
       child: Scaffold(
@@ -52,7 +53,7 @@ class GroupScreen extends StatelessWidget {
                 Icons.add,
                 size: 40,
               ),
-              onPressed: () => openTransactionFormModal(context),
+              onPressed: () => openTransactionFormModal(context, group),
             )
           ],
         ),
