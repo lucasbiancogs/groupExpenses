@@ -210,16 +210,22 @@ class Auth with ChangeNotifier {
     _logoutTimer = Timer(Duration(seconds: timeToLogout), logout);
   }
 
-  // Esse método tem que sair daqui e ir para group
-  Future<void> addGroup() async {
+  Future<void> addGroup(String name, String userId) async {
     final response = await http.post(
-        'https://groupexpenses-lucasbianco.firebaseio.com/groups.json',
-        body: json.encode({
-          'name': 'Loja',
-          'usersId': [
-            '-MFNNXKUcVSI0Ob0iHZK',
-            '-MFVEnxWFtB4BkBfefpv',
-          ].map((u) => u).toList(),
-        }));
+      '$_baseUrl/groups.json',
+      body: json.encode({
+        'name': name,
+        'usersId': [
+          userId,
+        ],
+      }),
+    );
+
+    String groupId = json.decode(response.body)['name'];
+
+    return http.put(
+      '$_baseUrl/users/$userId/groupsId.json',
+      body: json.encode([groupId]),
+    );
   }
 }

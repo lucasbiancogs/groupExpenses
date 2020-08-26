@@ -24,7 +24,16 @@ class AuthenticatedUserScreen extends StatelessWidget {
                 ),
               );
             } else {
-              return Center(child: Text('Olá ${auth.name}'));
+              return Column(
+                children: [
+                  Center(child: Text('Olá ${auth.name}')),
+                  RaisedButton(
+                      child: Text('Adicionar Grupo'),
+                      onPressed: () async {
+                        await auth.addGroup('Família', auth.userId);
+                      }),
+                ],
+              );
             }
           }),
       drawer: AppDrawer(),

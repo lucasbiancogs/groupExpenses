@@ -67,4 +67,5 @@ class Group with ChangeNotifier {
 
     return dataMap;
   }
+
 }

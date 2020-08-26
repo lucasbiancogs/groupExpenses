@@ -20,9 +20,11 @@ class UserCard extends StatelessWidget {
         group.total == 0.0 ||
         group.total == null;
 
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-      child: ListTile(
+    return ListTile(
+      contentPadding: EdgeInsets.symmetric(
+        vertical: 10,
+        horizontal: 5
+      ),
         onTap: () async {
           await Navigator.of(context).pushNamed(
             AppRoutes.USER_SCREEN,
@@ -59,7 +61,6 @@ class UserCard extends StatelessWidget {
             ),
           ),
         ),
-      ),
     );
   }
 }

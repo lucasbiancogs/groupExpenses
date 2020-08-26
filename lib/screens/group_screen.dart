@@ -40,7 +40,12 @@ class GroupScreen extends StatelessWidget {
               height: MediaQuery.of(context).size.height - 400,
               child: ListView(
                 children: group.users.map((user) {
-                  return UserCard(user);
+                  return Column(
+                    children: [
+                      UserCard(user),
+                      Divider(),
+                    ],
+                  );
                 }).toList(),
               ),
             ),
