@@ -9,7 +9,7 @@ import 'screens/auth_screen.dart';
 import 'screens/group_screen.dart';
 import 'screens/user_screen.dart';
 import 'screens/transaction_list_screen.dart';
-import 'screens/group_form.dart';
+import 'screens/group_form_screen.dart';
 
 
 void main() => runApp(GroupExpenses());
