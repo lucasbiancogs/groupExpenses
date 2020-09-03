@@ -36,12 +36,16 @@ class AppDrawer extends StatelessWidget {
                   });
             }).toList(),
           ),
-          if(auth.isAuth != null || auth.groups.length < 5)
-          ListTile(
-            leading: Icon(Icons.group_add),
-            title: Text('Adicionar Grupo'),
-            onTap: () {},
-          ),
+          if (auth.isAuth == true && auth.groups.length < 5)
+            ListTile(
+              leading: Icon(Icons.group_add),
+              title: Text('Adicionar Grupo'),
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  AppRoutes.GROUP_FORM_SCREEN
+                );
+              },
+            ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
             title: Text('Sair'),

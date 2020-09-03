@@ -13,7 +13,7 @@ class UserScreen extends StatelessWidget {
       value: user,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Usuário ${user.name}'),
+          title: Text(user.name),
         ),
         body: Container(
           width: double.infinity,

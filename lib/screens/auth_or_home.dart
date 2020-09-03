@@ -23,7 +23,7 @@ class AuthOrHome extends StatelessWidget {
           );
         } else if (snapshot.error != null) {
           return Center(
-            child: Text('Ops. Ocorreu um erro na aplicação'),
+            child: Text('Ops. Ocorreu um erro na aplicação.'),
           );
         } else {
           return auth.isAuth ? AuthenticatedUserScreen() : AuthScreen();

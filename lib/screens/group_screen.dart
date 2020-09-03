@@ -29,6 +29,9 @@ class GroupScreen extends StatelessWidget {
       child: Scaffold(
       appBar: AppBar(
         title: Text(group.name),
+        actions: [
+          IconButton(icon: Icon(Icons.send), onPressed: () {})
+        ],
       ),
       body: Container(
         width: double.infinity,

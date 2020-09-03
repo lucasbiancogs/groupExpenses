@@ -9,6 +9,7 @@ import 'screens/auth_screen.dart';
 import 'screens/group_screen.dart';
 import 'screens/user_screen.dart';
 import 'screens/transaction_list_screen.dart';
+import 'screens/group_form.dart';
 
 
 void main() => runApp(GroupExpenses());
@@ -40,6 +41,7 @@ class GroupExpenses extends StatelessWidget {
           AppRoutes.GROUP_SCREEN: (ctx) => GroupScreen(),
           AppRoutes.USER_SCREEN: (ctx) => UserScreen(),
           AppRoutes.TRANSACTION_LIST_SCREEN: (ctx) => TransactionListScreen(),
+          AppRoutes.GROUP_FORM_SCREEN: (ctx) => GroupFormScreen(),
         },
       ),
     );
